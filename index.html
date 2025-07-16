@@ -1,27 +1,53 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>1930 Game (Web Version)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     canvas {
       display: block;
       margin: auto;
       background: #1e1e1e;
+      max-width: 100%;
+      height: auto;
     }
     body {
       background: #000;
       color: #fff;
       font-family: sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    #controls {
+      margin-top: 10px;
+    }
+    .btn {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #444;
+      color: #fff;
+      cursor: pointer;
+    }
+    .btn:active {
+      background-color: #666;
     }
   </style>
 </head>
 <body>
   <h1>1930 Game (Web Version)</h1>
-  <button onclick="togglePause()">Play / Pause</button>
+  <button class="btn" onclick="togglePause()">Play / Pause</button>
   <canvas id="gameCanvas" width="600" height="800"></canvas>
+
+  <div id="controls">
+    <button class="btn" ontouchstart="keys['ArrowLeft']=true" ontouchend="keys['ArrowLeft']=false">Left</button>
+    <button class="btn" ontouchstart="keys['ArrowRight']=true" ontouchend="keys['ArrowRight']=false">Right</button>
+  </div>
+
   <audio id="bgm" src="bgm.mp3" loop autoplay hidden></audio>
   <audio id="clap" src="clap.mp3" hidden></audio>
 
@@ -158,7 +184,6 @@
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
       drawPlayer();
-
       items.forEach(item => drawCircle(item.x, item.y, item.r, theme.item));
       giants.forEach(g => drawCircle(g.x, g.y, g.r, theme.giant));
       obstacles.forEach(o => drawCircle(o.x, o.y, o.r, theme.obstacle));
